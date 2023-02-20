@@ -10,7 +10,7 @@
 
 \setmainfont{GenYoMinTW-R}
 \setsansfont{GenYoGothicTW-R}
-\setmonofont{SourceCodePro-Regular}
+\setmonofont[Scale=0.9]{SourceCodePro-Regular}
 
 \setCJKmainfont{NotoSerifCJKtc-Regular}
 \setCJKsansfont{NotoSansCJKtc-Regular}
@@ -50,8 +50,7 @@
 \def\abs{\@ifstar{\@abs}{\@abs*}}
 \def\ceil{\@ifstar{\@ceil}{\@ceil*}}
 \def\floor{\@ifstar{\@floor}{\@floor*}}
-\def\inner{\@ifstar{\@inner}{\@inner*}}
-\def\norm{\@ifstar{\@norm}{\@norm*}}
+\def\inner{\@ifstar{\@inner}{\@inner*}} \def\norm{\@ifstar{\@norm}{\@norm*}}
 \def\set{\@ifstar{\@set}{\@set*}}
 \def\Set{\@ifstar{\@Set}{\@Set*}}
 \makeatother
@@ -213,13 +212,12 @@
 
 %--------------------------------------------------
 
-% \RequirePackage[pdfusetitle]{hyperref}
 \RequirePackage{xurl}
 \RequirePackage{hyperref}
 \RequirePackage[capitalize,nameinlink,noabbrev]{cleveref}
-\RequirePackage{aliascnt}
 
 \hypersetup{
+	urlbordercolor=black,
 	linkbordercolor=black,
   pdfborderstyle={/S/U/W 0.5}
 }
@@ -230,6 +228,7 @@
 
 \newcommand*{\NewTheorem}[1]{
 	\expandafter\providecommand\csname#1autorefname\endcsname{\MakeUppercase#1}
+	\crefname{#1}{ {\MakeUppercase#1} }{{\MakeUppercase#1}s}
 	\newtheorem{#1}{\MakeUppercase#1}
 	\newtheorem*{#1*}{\MakeUppercase#1}
 }
@@ -245,6 +244,10 @@
 \NewTheorem{lemma}
 \NewTheorem{observation}
 \NewTheorem{theorem}
+
+%--------------------------------------------------
+
+% For Problem
 
 %--------------------------------------------------
 
@@ -274,7 +277,7 @@
 
 \begin{lemma}[My lemma]
 	My lemma.
-	According to \autoref{myob}.
+	According to \cref{myob}.
 \end{lemma}
 
 \begin{theorem}[My theorem]
@@ -285,13 +288,13 @@
 	Lemma 2.
 \end{lemma}
 
-Test url: \url{https://en.wikibooks.org/wiki/LaTeX/Counters}
+Teeeeest url: \url{https://tex.stackexchange.com/questions/61015/how-to-use-different-colors-for-different-href-commands}
 \href{https://en.wikibooks.org/wiki/LaTeX/Counters}{Test href}
 
 \section{Todo}
 \begin{itemize}
-	\item Code syntax highlight color scheme.
-	\item Hyperlinks.
+	\item Problem.
+	\item Code block.
 	\item A figure wrapper?
 	\item Tabular, unit, enumerate
 	\item Fun things like ytableau, halloweenmath, coffee stain\ldots
@@ -300,6 +303,8 @@ Test url: \url{https://en.wikibooks.org/wiki/LaTeX/Counters}
 \section{Lorem}
 
 Zisk \footnote{Known as ZCKevin} is strong.
+
+\subsection {Chinese lorem}
 
 顏色香半，褕海知，舉臥之斯文大⋯萬里送，Lorem ipsum dolor sit amet, consectetuer adipiscing elit. 幾度九華帳山色之難難，楚能余亦之難難夜日行陽為君。萬事仙臥月南風何十怨遙夜⋯風沙，師落葉滿秋，歲閣自照露，征柳啾啾月一曲然不得有殷勤，遠不到酒稀清輝。腸何時還，行路難獨夜南⋯羅微鳳路雪虛征戰。鳴看煙，衣裳多斜馬，相見秋松下孤城君不見西羽歲王孫：見臨烽火桃李但見茫茫獨，問見得城月涕淚長可聖兒夢不成，掩至今歌。雖識月明如此，曲夢在新到天秋一，寂昔不逢闌干，窗東流水腸斷角不見清天與故人，下兒雨千門微遲里劍閣白，石鼓。
 
