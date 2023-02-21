@@ -20,6 +20,19 @@
 - 可以將 `fhw.cls` 放到與主要的 `.tex` 檔案同一個資料夾，或是將其放在 `~/texmf/tex/latex/local` 底下（沒有這個目錄可以自己建立）。
 - 請使用 `pdflatex` 或 `latexmk` 並加上 `-pdfxe -shell-escape` 編譯。
 
+## Dependency
+
+請安裝以下字體：
+
+- [源樣明體](https://github.com/ButTaiwan/genyo-font)
+- [源樣黑體](https://github.com/ButTaiwan/genyog-font)
+- Noto Serif CJK TC
+- Noto Sans CJK TC
+- Noto Sans Mono
+- Noto Sans Mono CJK TC
+
+前二者可以點連結至其 Repo 的 Release 下載安裝，後者建議在 Linux 系統上以 `sudo apt install fonts-noto` 安裝。
+
 ### TODO
 
 - Different colorscheme for printing.

@@ -10,13 +10,13 @@
 \XeTeXlinebreaklocale "zh"
 \XeTeXlinebreakskip = 0pt plus 1pt
 
-\setmainfont{GenYoMinTW-R}
-\setsansfont{GenYoGothicTW-R}
-\setmonofont{NotoSansMono-Regular}
+\setmainfont[AutoFakeSlant=.2]{GenYoMinTW-R}
+\setsansfont[AutoFakeSlant=.2]{GenYoGothicTW-R}
+\setmonofont[AutoFakeSlant=.2]{NotoSansMono-Regular}
 
-\setCJKmainfont{NotoSerifCJKtc-Regular}
-\setCJKsansfont{NotoSansCJKtc-Regular}
-\setCJKmonofont{NotoSansMonoCJKtc-Regular}
+\setCJKmainfont[AutoFakeSlant=.2]{NotoSerifCJKtc-Regular}
+\setCJKsansfont[AutoFakeSlant=.2]{NotoSansCJKtc-Regular}
+\setCJKmonofont[AutoFakeSlant=.2]{NotoSansMonoCJKtc-Regular}
 
 \RequirePackage[onehalfspacing]{setspace}
 
@@ -26,15 +26,15 @@
 \RequirePackage{amsmath}
 \RequirePackage{yhmath}
 \RequirePackage{mathtools}
-\RequirePackage{esint} % for \oiint
-\RequirePackage{mleftright}
+\RequirePackage{esint}      % for \oiint
+\RequirePackage{mleftright} % for removing extra spaces around \left and \right
 \mleftright
 
 \makeatletter
 \newcommand{\@renewmid}{\renewcommand{\mid}{%
 		\mathclose{}%
 		\mathchoice{\;}{\;}{\,}{\,}%
-		\delimsize\vert%\allowbreak
+		\delimsize\vert%
 		\mathchoice{\;}{\;}{\,}{\,}%
 		\mathopen{}%
 }}
