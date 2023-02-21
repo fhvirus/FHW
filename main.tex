@@ -4,13 +4,12 @@
 
 \RequirePackage{fontspec}
 \RequirePackage{xeCJK}
-\RequirePackage{CJKulem}
 \XeTeXlinebreaklocale "zh"
 \XeTeXlinebreakskip = 0pt plus 1pt
 
 \setmainfont{GenYoMinTW-R}
 \setsansfont{GenYoGothicTW-R}
-\setmonofont[Scale=0.9]{SourceCodePro-Regular}
+\setmonofont{NotoSansMono-Regular}
 
 \setCJKmainfont{NotoSerifCJKtc-Regular}
 \setCJKsansfont{NotoSansCJKtc-Regular}
@@ -105,7 +104,7 @@
 	footnotesep=8mm,
 }
 \RequirePackage[parfill]{parskip}
-\RequirePackage{microtype}
+% \RequirePackage{microtype}
 
 %--------------------------------------------------
 
@@ -176,42 +175,6 @@
 
 %--------------------------------------------------
 
-\RequirePackage{minted}
-\RequirePackage{algorithm}              % for psuedo code
-\RequirePackage{algpseudocode}
-\RequirePackage{mdframed}
-
-\mdfdefinestyle{CodeBlock}{
-	innerleftmargin=28pt,
-	% hidealllines=true,
-}
-
-\usemintedstyle{nord}
-
-\renewcommand{\theFancyVerbLine}{
-	\textcolor{My0}{\footnotesize\arabic{FancyVerbLine}}
-}
-\newcommand{\Code}[3][]{
-	\vspace{\parskip}
-	\begin{spacing}{1}
-		\begin{mdframed}[style=CodeBlock]
-			\inputminted[
-			bgcolor=nord01,
-			% frame=leftline,
-			tabsize=2,
-			obeytabs,
-			linenos,
-			mathescape,
-			fontsize=\footnotesize,
-			numbersep=0pt,
-			#1
-			]{#2}{#3}
-		\end{mdframed}
-	\end{spacing}
-}
-
-%--------------------------------------------------
-
 \RequirePackage{xurl}
 \RequirePackage{hyperref}
 \RequirePackage[capitalize,nameinlink,noabbrev]{cleveref}
@@ -247,7 +210,116 @@
 
 %--------------------------------------------------
 
-% For Problem
+\RequirePackage[newfloat]{minted}
+\RequirePackage{caption}
+\RequirePackage{algorithm}              % for psuedo code
+\RequirePackage{algpseudocode}
+\RequirePackage{mdframed}
+
+\mdfdefinestyle{CodeBlock}{
+	innerleftmargin=28pt,
+	innerbottommargin=0pt,
+	hidealllines=true,
+}
+
+\usemintedstyle{nord}
+
+\renewcommand{\theFancyVerbLine}{
+	\textcolor{nord01}{\footnotesize\arabic{FancyVerbLine}}
+}
+
+\newenvironment{code}{\captionsetup{type=listing}}{}
+\SetupFloatingEnvironment{listing}{name=Code}
+\crefname{listing}{Code}{Codes}
+
+\newcommand{\Code}[5][]{
+	\begin{code}
+		\begin{spacing}{1}
+			\begin{mdframed}[style=CodeBlock]
+				\parskip=0pt
+				\inputminted[
+				bgcolor=nord01,
+				% frame=leftline,
+				tabsize=2,
+				obeytabs,
+				linenos,
+				mathescape,
+				fontsize=\footnotesize,
+				numbersep=0pt,
+				#1
+				]{#2}{#3}
+			\end{mdframed}
+			\caption{#4}
+			\label{code:#5}
+		\end{spacing}
+	\end{code}
+}
+
+%--------------------------------------------------
+
+\RequirePackage{graphicx}
+
+\newcommand{\Image}[3]{
+	\begin{figure}[htpb]
+		\centering
+		\includegraphics[width=0.8\textwidth]{#1}
+		\caption{#2}
+		\label{img:#3}
+	\end{figure}
+}
+
+%--------------------------------------------------
+
+\makeatletter
+\newcounter{problem}
+\providecommand{\problemname}{Problem}
+
+\let\problemmark\@gobble
+\let\toclevel@problem\toclevel@section % for PDF bookmarks
+
+% disables numbering for problems, for both actual headers and in TOC
+\def\l@problem#1#2{\begingroup\let\numberline\@gobble\l@section{#1}{#2}\endgroup} % tex.stackexchange.com/a/62117
+\def\@nonumsproblem{}
+\def\@seccntformat#1{% www.texfaq.org/FAQ-seccntfmt
+	\ifcsname @nonums#1\endcsname\else
+		\csname the#1\endcsname\quad% default behavior for other section types, from ltsect.dtx
+	\fi
+}
+
+\newcommand{\@problemsection}{
+\@startsection{problem}{2}{-.5ex}%\z@}
+	{-3.25ex\@plus -1ex \@minus -.2ex}
+	{1.5ex \@plus .2ex}
+	{\normalfont\large\bfseries}
+}
+
+\newcommand*{\@problem}[1][\@nil]{% tex.stackexchange.com/a/217763
+	\def\@arg{#1}
+	\begingroup\edef\x{\endgroup% expands problem counter for \nameref: tex.stackexchange.com/a/569405
+		\noexpand\@problemsection{
+			\problemname{} % note: space
+			\ifx\@arg\@nnil\the\numexpr\value{problem}+1\else#1\fi%
+		}
+	}\x
+}
+\newcommand{\problem}{\@ifstar{
+		\@problem
+	}{
+		\ifnum\theproblem>0\newpage\fi
+		\@problem
+}}
+\makeatother
+
+%--------------------------------------------------
+
+\RequirePackage{enumerate}
+\renewcommand\labelitemi{\raisebox{.2ex}{$\bullet$}}
+\RequirePackage{ulem}
+\RequirePackage{enumerate}
+\RequirePackage{tabularx}
+\RequirePackage{siunitx}
+\RequirePackage{ytableau}
+\RequirePackage{halloweenmath}
 
 %--------------------------------------------------
 
@@ -262,6 +334,52 @@
 \begin{document}
 
 \maketitle
+
+\blindtext
+\Code[firstline=2]{cpp}{a.cpp}{caption}{label}
+\blindtext
+\Image{cactus.jpeg}{Cactus!}{cactus}
+
+\section{Lorem}
+
+Zisk \footnote{Known as ZCKevin} is strong. \cref{code:label} and \cref{img:cactus}.
+
+\subsection {Chinese lorem}
+
+\sout{顏色}香半，褕海知，舉臥之斯文大⋯萬里送，Lorem ipsum dol'or sit amet, consectetuer adipiscing elit. 幾度九華帳山色之難難，楚能余亦之難難夜日行陽為君。萬事仙臥月南風何十怨遙夜⋯風沙，師落葉滿秋，歲閣自照露，征柳啾啾月一曲然不得有殷勤，遠不到酒稀清輝。腸何時還，行路難獨夜南⋯羅微鳳路雪虛征戰。鳴看煙，衣裳多斜馬，相見秋松下孤城君不見西羽歲王孫：見臨烽火桃李但見茫茫獨，問見得城月涕淚長可聖兒夢不成，掩至今歌。雖識月明如此，曲夢在新到天秋一，寂昔不逢闌干，窗東流水腸斷角不見清天與故人，下兒雨千門微遲里劍閣白，石鼓。
+
+
+Some words imediatly after code block\ldots
+
+$$
+\abs{1 + \frac xy}^2
+$$
+
+\[
+	\abs{\frac{1}{1 - \lambda h}} \le 1
+	\qquad\text{and}\qquad
+	\bigcup_{i=1}^n \; \set{z \in \C \mid \abs*{z - a_{ii}} \le {\sum\nolimits_{j \ne i}} \abs*{a_{ij}}}.
+\]
+
+\blindtext
+
+\newpage
+
+\section{Ipsum}
+\blindtext
+
+沒有好棒，別嗚哈哈哈，都這個實說不然也不，的人的什麼最好。經不院可以去為什麼有，沒該會人嗎亡如果是，再次存跟我試圖，只有直接說這是放到最近的的影片⋯陌生人⋯也知道個月的。其覺得是起來跟不可能也很，畫面待喔好天的簡單很不是聽起來，然已經就聖我的話的聲。再然後道了嗎傍晚時害的，男的話就需要一，或許是的男，去的方法我愛次自行要跟⋯了沒好會的角色這邊，一把的人會出們看記⋯
+
+\problem*
+\problem*
+\problem*
+\section{test}
+\problem*
+\blindtext
+\problem*[8]
+\subsection{test}
+\problem*
+
 \begin{theorem}
 	Theorem 1. \blindtext
 \end{theorem}
@@ -289,48 +407,6 @@
 \end{lemma}
 
 Teeeeest url: \url{https://tex.stackexchange.com/questions/61015/how-to-use-different-colors-for-different-href-commands}
-\href{https://en.wikibooks.org/wiki/LaTeX/Counters}{Test href}
-
-\section{Todo}
-\begin{itemize}
-	\item Problem.
-	\item Code block.
-	\item A figure wrapper?
-	\item Tabular, unit, enumerate
-	\item Fun things like ytableau, halloweenmath, coffee stain\ldots
-\end{itemize}
-
-\section{Lorem}
-
-Zisk \footnote{Known as ZCKevin} is strong.
-
-\subsection {Chinese lorem}
-
-顏色香半，褕海知，舉臥之斯文大⋯萬里送，Lorem ipsum dolor sit amet, consectetuer adipiscing elit. 幾度九華帳山色之難難，楚能余亦之難難夜日行陽為君。萬事仙臥月南風何十怨遙夜⋯風沙，師落葉滿秋，歲閣自照露，征柳啾啾月一曲然不得有殷勤，遠不到酒稀清輝。腸何時還，行路難獨夜南⋯羅微鳳路雪虛征戰。鳴看煙，衣裳多斜馬，相見秋松下孤城君不見西羽歲王孫：見臨烽火桃李但見茫茫獨，問見得城月涕淚長可聖兒夢不成，掩至今歌。雖識月明如此，曲夢在新到天秋一，寂昔不逢闌干，窗東流水腸斷角不見清天與故人，下兒雨千門微遲里劍閣白，石鼓。
-
-\Code[firstline=2]{cpp}{a.cpp}
-
-Some words imediatly after code block\ldots
-
-$$
-\abs{1 + \frac xy}^2
-$$
-
-\[
-	\abs{\frac{1}{1 - \lambda h}} \le 1
-	\qquad\text{and}\qquad
-	\bigcup_{i=1}^n \; \set{z \in \C \mid \abs*{z - a_{ii}} \le {\sum\nolimits_{j \ne i}} \abs*{a_{ij}}}.
-\]
-
-\blindtext
-
-\section{Ipsum}
-\Blindtext
-
-\newpage
-\section{Dolor}
-\blindtext
-
-沒有好棒，別嗚哈哈哈，都這個實說不然也不，的人的什麼最好。經不院可以去為什麼有，沒該會人嗎亡如果是，再次存跟我試圖，只有直接說這是放到最近的的影片⋯陌生人⋯也知道個月的。其覺得是起來跟不可能也很，畫面待喔好天的簡單很不是聽起來，然已經就聖我的話的聲。再然後道了嗎傍晚時害的，男的話就需要一，或許是的男，去的方法我愛次自行要跟⋯了沒好會的角色這邊，一把的人會出們看記⋯
+\href{https://en.wikibooks.org/wiki/LaTeX/Counters}{Test hrefy}
 
 \end{document}
