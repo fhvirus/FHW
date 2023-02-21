@@ -27,8 +27,7 @@
 \RequirePackage{yhmath}
 \RequirePackage{mathtools}
 \RequirePackage{esint} % for \oiint
-\RequirePackage{halloweenmath}
-\RequirePackage{siunitx} % for \unit \RequirePackage{mleftright}
+\RequirePackage{mleftright}
 \mleftright
 
 \makeatletter
@@ -56,8 +55,7 @@
 \def\Set{\@ifstar{\@Set}{\@Set*}}
 \makeatother
 
-\mathcode`\*="8000
-{\catcode`\*\active\gdef*{\cdot}}
+\mathcode`\*="8000 {\catcode`\*\active\gdef*{\cdot}}
 
 \newcommand{\N}{\mathbb N}
 \newcommand{\Z}{\mathbb Z}
