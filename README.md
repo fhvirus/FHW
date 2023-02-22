@@ -10,6 +10,7 @@
 - `\problem` ：作業習題標題。
 - `\Code` ：漂亮的程式碼。
 - 跟據要繳交檔案還是紙本變更 syntax highlight colorscheme 。
+- 用 `\printtrue` 和 `\printfalse` 來切換檔案、影印模式，印出來會比較好看。
 
 ……等等功能，詳細說明請看 example.pdf。
 
