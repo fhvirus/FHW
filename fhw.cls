@@ -115,6 +115,7 @@
 
 %--------------------------------------------------
 
+\RequirePackage{titling}
 \RequirePackage{fancyhdr} % for fancy header/footer
 
 \makeatletter
