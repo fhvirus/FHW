@@ -10,10 +10,16 @@
 \XeTeXlinebreaklocale "zh"
 \XeTeXlinebreakskip = 0pt plus 1pt
 
+% GenYo(G) fonts fit with Noto Serif/Sans CJK better and
+% supports more rare CJK punctuations.
+% https://github.com/ButTaiwan/genyo-font
+% https://github.com/ButTaiwan/genyog-font
 \setmainfont[AutoFakeSlant=.2]{GenYoMinTW-R}
 \setsansfont[AutoFakeSlant=.2]{GenYoGothicTW-R}
 \setmonofont[AutoFakeSlant=.2]{NotoSansMono-Regular}
 
+% However, GenYo(G) fonts do not display my name right,
+% so I still use Noto for CJK characters.
 \setCJKmainfont[AutoFakeSlant=.2]{NotoSerifCJKtc-Regular}
 \setCJKsansfont[AutoFakeSlant=.2]{NotoSansCJKtc-Regular}
 \setCJKmonofont[AutoFakeSlant=.2]{NotoSansMonoCJKtc-Regular}
@@ -27,6 +33,7 @@
 \RequirePackage{yhmath}
 \RequirePackage{mathtools}
 \RequirePackage{esint}      % for \oiint
+\RequirePackage{physics}    % for \eval
 \RequirePackage{mleftright} % for removing extra spaces around \left and \right
 \mleftright
 
@@ -38,14 +45,14 @@
 		\mathchoice{\;}{\;}{\,}{\,}%
 		\mathopen{}%
 }}
+
 % tex.stackexchange.com/a/43009
 \DeclarePairedDelimiter{\@abs}{\lvert}{\rvert}
 \DeclarePairedDelimiter{\@ceil}{\lceil}{\rceil}
 \DeclarePairedDelimiter{\@floor}{\lfloor}{\rfloor}
-\DeclarePairedDelimiter{\@angle}{\langle}{\rangle}
+\DeclarePairedDelimiter{\@inner}{\langle}{\rangle}
 \DeclarePairedDelimiter{\@norm}{\lVert}{\rVert}
 \DeclarePairedDelimiterX{\@set}[1]{\{}{\}}{\@renewmid#1}
-\DeclarePairedDelimiterX{\@Set}[1]{\{}{\}}{\@renewmid\nonscript\,#1\nonscript\,} % \nonscript suppresses \, in (script)script style
 
 \def\abs{\@ifstar{\@abs}{\@abs*}}
 \def\ceil{\@ifstar{\@ceil}{\@ceil*}}
@@ -66,6 +73,7 @@
 
 %--------------------------------------------------
 
+% Mostly unused.
 \RequirePackage{xcolor}
 \definecolor{nord00}{HTML}{2e3440}
 \definecolor{nord01}{HTML}{3b4252}
@@ -103,28 +111,11 @@
 	footskip=2\baselineskip,
 	footnotesep=8mm,
 }
-\RequirePackage[parfill]{parskip}
-% \RequirePackage{microtype}
+\RequirePackage[parfill]{parskip} % substitute spaces for indent before paragraph.
 
 %--------------------------------------------------
 
-\RequirePackage{titlesec}               % 設定 section 等的字體
-\RequirePackage{titling}                % 加強 title 功能
-\RequirePackage{fancyhdr}               % 頁首頁尾
-\makeatletter %\@title only usable after this
-\setlength{\headwidth}{\paperwidth-\Gm@lmargin-\Gm@rmargin}
-\pagestyle{fancy}
-\fancyhf{}
-\lhead{\@CourseName\;|\;\@title}
-\rhead{\@ID\;\@author}
-\cfoot{\thepage}
-\makeatother
-
-%--------------------------------------------------
-
-\RequirePackage{tikz}
-\RequirePackage{tikzpagenodes}
-\usetikzlibrary{calc}
+\RequirePackage{fancyhdr} % for fancy header/footer
 
 \makeatletter
 \newcommand{\DeclareVariable}[1]{
@@ -136,6 +127,26 @@
 \DeclareVariable{CourseName}
 \DeclareVariable{ID}
 
+\setlength{\headwidth}{\paperwidth-\Gm@lmargin-\Gm@rmargin}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\@CourseName\;|\;\@title}
+\rhead{\@ID\;\@author}
+\cfoot{\thepage}
+\makeatother
+
+%--------------------------------------------------
+
+% For printing, I prefer to use black & white scheme
+% and a header that doesn't fill to the edge of the page
+% Header isn't done yet.
+\newif\ifprint
+
+\RequirePackage{tikz}
+\RequirePackage{tikzpagenodes}
+\usetikzlibrary{calc}
+
+\makeatletter
 \newcommand{\HeaderFillSize}{5cm}
 \def\@maketitle{%
 	\newpage%
@@ -175,9 +186,8 @@
 
 %--------------------------------------------------
 
-\RequirePackage{xurl}
+\RequirePackage{xurl} % make url break almost everywhere
 \RequirePackage{hyperref}
-\RequirePackage[capitalize,nameinlink,noabbrev]{cleveref}
 
 \hypersetup{
 	urlbordercolor=black,
@@ -188,6 +198,11 @@
 %--------------------------------------------------
 
 \RequirePackage{amsthm}
+\RequirePackage[capitalize,nameinlink,noabbrev]{cleveref}
+
+% Each type of theorem (Theorem, Lemma, Observation...) has independent numbering
+% and ignores sections, if you want them to use the same counter,
+% please take a look at aliascnt package.
 
 \newcommand*{\NewTheorem}[1]{
 	\expandafter\providecommand\csname#1autorefname\endcsname{\MakeUppercase#1}
@@ -201,8 +216,8 @@
 	\thmnumber{ #2.}%
 	\thmnote{ \bfseries{(#3)}}%
 }
-\theoremstyle{myStyle}
 
+\theoremstyle{myStyle}
 \NewTheorem{corollary}
 \NewTheorem{lemma}
 \NewTheorem{observation}
@@ -210,6 +225,8 @@
 
 %--------------------------------------------------
 
+% newfloat for captioning.
+% ref: https://tex.stackexchange.com/a/254177/290605
 \RequirePackage[newfloat]{minted}
 \RequirePackage{caption}
 \RequirePackage{algorithm}              % for psuedo code
@@ -222,43 +239,95 @@
 	hidealllines=true,
 }
 
-\usemintedstyle{nord}
-
+% Line number font style
 \renewcommand{\theFancyVerbLine}{
 	\textcolor{nord01}{\footnotesize\arabic{FancyVerbLine}}
 }
 
-\newenvironment{code}{\captionsetup{type=listing}}{}
+\newenvironment{codeblock}{\captionsetup{type=listing}}{}
 \SetupFloatingEnvironment{listing}{name=Code}
 \crefname{listing}{Code}{Codes}
 
-\newcommand{\Code}[5][]{
-	\begin{code}
+\definecolor{mygray}{gray}{0.9}
+
+% https://tex.stackexchange.com/a/380279/290605
+% https://tex.stackexchange.com/a/42398/290605
+% https://github.com/gpoore/minted/issues/72
+% the \color inside \mdframed is for a weird bug
+% that the text color doesn't do as we wish
+
+% \Code[additional minted formatting]{lang}{file}{caption}{label}
+\newcommand{\CodeFile}[5][]{
+	\begin{codeblock}
 		\begin{spacing}{1}
 			\begin{mdframed}[style=CodeBlock]
 				\parskip=0pt
+        \ifprint
+        \usemintedstyle{bw}
+        \color{black}
+        \colorlet{bgc}{mygray}
+        \else
+        \usemintedstyle{nord}
+        \color{nord06}
+        \colorlet{bgc}{nord01}
+        \fi
 				\inputminted[
-				bgcolor=nord01,
-				% frame=leftline,
+				bgcolor=bgc,
 				tabsize=2,
 				obeytabs,
 				linenos,
 				mathescape,
 				fontsize=\footnotesize,
 				numbersep=0pt,
+        breaklines,
+        breakafter={,}
 				#1
 				]{#2}{#3}
 			\end{mdframed}
 			\caption{#4}
 			\label{code:#5}
 		\end{spacing}
-	\end{code}
+	\end{codeblock}
+}
+
+\newenvironment{Code}[2][]
+{\VerbatimEnvironment%
+	\begin{codeblock}
+		\begin{spacing}{1}
+				\parskip=0pt
+        \ifprint
+        \usemintedstyle{bw}
+        \color{black}
+        \colorlet{bgc}{mygray}
+        \else
+        \usemintedstyle{nord}
+        \color{nord06}
+        \colorlet{bgc}{nord01}
+        \fi
+				\begin{minted}[
+          bgcolor=bgc,
+					tabsize=2,
+					obeytabs,
+					mathescape,
+					fontsize=\footnotesize,
+					numbersep=0pt,
+          breaklines,
+          breakafter={,}
+					#1
+				]{#2}%
+}%
+{%
+				\end{minted}
+		\end{spacing}
+	\end{codeblock}
+  % \vspace{-\baselineskip}
 }
 
 %--------------------------------------------------
 
 \RequirePackage{graphicx}
 
+% \Image{file}{caption}{label}
 \newcommand{\Image}[3]{
 	\begin{figure}[htpb]
 		\centering
@@ -270,8 +339,11 @@
 
 %--------------------------------------------------
 
-\makeatletter
-\newcounter{problem}
+% From https://github.com/gijs-pennings/latex-homework
+% I don't really know how it works
+% but it works
+
+\makeatletter \newcounter{problem}
 \providecommand{\problemname}{Problem}
 
 \let\problemmark\@gobble
@@ -286,6 +358,7 @@
 	\fi
 }
 
+% Modified to use subsection style instead of section.
 \newcommand{\@problemsection}{
 \@startsection{problem}{2}{-.5ex}%\z@}
 	{-3.25ex\@plus -1ex \@minus -.2ex}
@@ -312,13 +385,12 @@
 
 %--------------------------------------------------
 
-\RequirePackage{enumerate}
-\renewcommand\labelitemi{\raisebox{.2ex}{$\bullet$}}
-\RequirePackage{ulem}
-\RequirePackage{enumerate}
-\RequirePackage{tabularx}
-\RequirePackage{siunitx}
-\RequirePackage{ytableau}
-\RequirePackage{halloweenmath}
+\RequirePackage{enumerate}                           % for numbering like (a)
+\renewcommand\labelitemi{\raisebox{.2ex}{$\bullet$}} % fix tiny bullet
+\RequirePackage{ulem}                                % for \sout{} and more
+\RequirePackage{tabularx}                            % for better tabular
+\RequirePackage{siunitx}                             % units for phys. homework
+\RequirePackage{ytableau}                            % for pretty tableau diagram
+\RequirePackage{halloweenmath}                       % for cuteness & fun
 
 %--------------------------------------------------

@@ -4,86 +4,238 @@
 
 \title{Beautiful Homework}
 \author{Author}
-\ID{b11902000}
-\CourseID{Math4007-01}
-\CourseName{Calculus 2}
+\ID{b11902017}
+\CourseID{CSIE5302}
+\CourseName{\LaTeX\;Template}
+
+% Toggle this for better BW printing
+% \printtrue
+\printfalse
 
 \begin{document}
 
 \maketitle
 
-\blindtext
-\Code[firstline=2]{cpp}{a.cpp}{caption}{label}
-\blindtext
-\Image{cactus.jpeg}{Cactus!}{cactus}
+\section{Basic Advanced Usage}
 
-\section{Lorem}
+\subsection{Enumerate}
 
-Zisk \footnote{Known as ZCKevin} is strong. \cref{code:label} and \cref{img:cactus}.
+Enumerate can be used like this:
+\begin{Code}{tex}
+\begin{enumerate}[(a)]
+  \item one
+  \item deux
+    \setcounter{enumi}{4}
+  \item fünf
+    \begin{enumerate}[i.]
+      \item and you can
+      \item nest them.
+    \end{enumerate}
+  \item[item6] Custom item.
+\end{enumerate}
+\end{Code}
 
-\subsection {Chinese lorem}
+The code will become: 
 
-\sout{顏色}香半，褕海知，舉臥之斯文大…\textit{萬里送，Lorem ipsum dol'or} sit amet, consectetuer adipiscing elit. 幾度九華帳山色之難難，楚能余亦之難難夜日行陽為君。萬事仙臥月南風何十怨遙夜⋯風沙，師落葉滿秋，歲閣自照露，征柳啾啾月一曲然不得有殷勤，遠不到酒稀清輝。腸何時還，行路難獨夜南⋯羅微鳳路雪虛征戰。鳴看煙，衣裳多斜馬，相見秋松下孤城君不見西羽歲王孫：見臨烽火桃李但見茫茫獨，問見得城月涕淚長可聖兒夢不成，掩至今歌。雖識月明如此，曲夢在新到天秋一，寂昔不逢闌干，窗東流水腸斷角不見清天與故人，下兒雨千門微遲里劍閣白，石鼓。
+\begin{enumerate}[(a)]
+	\item 一
+	\item deux
+	\setcounter{enumi}{4}
+	\item fünf
+		\begin{enumerate}[i.]
+			\item and you can
+			\item nest them.
+		\end{enumerate}
+	\item[item6] Custom item label.
+\end{enumerate}
 
+\subsection{Math symbols}
 
-Some words imediatly after code block\ldots
+There are some new symbols defined in this template:
 
-$$
-\abs{1 + \frac xy}^2
-$$
+\begin{Code}{tex}
+\[
+\N \Z \Q \R \C \contra
+\abs{a}, \ceil{b}, \floor{c}, \inner{x}, \norm{y}, \set{1, 2, \frac{3}{7}}
+a * b = c, x \ast y = z
+\]
+\end{Code}
 
+\[
+\N \Z \Q \R \C \contra
+\abs{a}, \ceil{b}, \floor{c}, \inner{x}, \norm{y}, \set{1, 2, \frac{3}{7}}
+a * b = c, x \ast y = z
+\]
+
+You can also use \verb|*| for product, no more \verb|\cdot|!
+
+If you want to have equations with multiple lines and be aligned, you can use \verb|align*|:
+
+\begin{align*}
+  & \int_{0}^{3} \abs{v\left(t\right)} dt \\
+  & = \int_{0}^{1} -v\left(t\right) dt + \int_{1}^{3} v\left(t\right) dt \\
+  & = \eval{\left(\frac{1}{3}t^3 + \frac{3}{2} t^2 - 4t\right)} _ {1} ^ {0}
+  + \eval{\left(\frac{1}{3}t^3 + \frac{3}{2} t^2 - 4t\right)} _ {1} ^ {3} \\
+  & = \left[0 - \left(\frac{1}{3} + \frac{3}{2} - 4\right)\right] + \left[\left(9 + \frac{27}{2} - 12\right) - \left(\frac{1}{3} + \frac{3}{2} - 4\right)\right] \\
+  & = \frac{89}{6}
+\end{align*}
+
+Remember to use \verb|\left( x \right)| for parantheses autoscaling, and \verb|\limits| to put things on top of / under $\sum$ and more! More examples:
+
+\[
+  \abs{1 + \frac xy}^2
+\]
 \[
 	\abs{\frac{1}{1 - \lambda h}} \le 1
 	\qquad\text{and}\qquad
-	\bigcup_{i=1}^n \; \set{z \in \C \mid \abs*{z - a_{ii}} \le {\sum\nolimits_{j \ne i}} \abs*{a_{ij}}}.
+	\bigcup_{i=1}^n \; \set{z \in \C \mid \abs*{z - a_{ii}} \le {\sum\limits_{j \ne i}} \abs*{a_{ij}}}.
 \]
 
-\blindtext
+\subsection{Text ornaments}
 
-\newpage
+\begin{Code}{tex}
+\textbf{Bold text}, \textit{Italic \footnote{Actually it's oblique.} text} with footnote or \textsl{Slanted text}, \texttt{Teletype text}, \emph{Emphasis with underline}, \underline{Underlined}, \sout{Strike through} work like this.
+\end{Code}
 
-\section{Ipsum}
-\blindtext
+\textbf{Bold text}, \textit{Italic \footnote{Actually it's oblique.} text} with footnote or \textsl{Slanted text}, \texttt{Teletype text}, \emph{Emphasis with underline}, \underline{Underlined}, \sout{Strike through} work like this.
 
-沒有好棒，別嗚哈哈哈，都這個實說不然也不，的人的什麼最好。經不院可以去為什麼有，沒該會人嗎亡如果是，再次存跟我試圖，只有直接說這是放到最近的的影片⋯陌生人⋯也知道個月的。其覺得是起來跟不可能也很，畫面待喔好天的簡單很不是聽起來，然已經就聖我的話的聲。再然後道了嗎傍晚時害的，男的話就需要一，或許是的男，去的方法我愛次自行要跟⋯了沒好會的角色這邊，一把的人會出們看記⋯
+\subsection{URLs and hyperrefs}
 
-\problem*
-\problem*
-\problem*
-\section{test}
-\problem*
-\blindtext
-\problem*[8]
-\subsection{test}
-\problem*
+\begin{Code}{tex}
+URLs like this: \url{https://tex.stackexchange.com/questions/61015/how-to-use-different-colors-for-different-href-commands}\\
+\href{https://en.wikibooks.org/wiki/LaTeX/Counters}{And hyperref like this.}
+\end{Code}
+URLs like this: \url{https://tex.stackexchange.com/questions/61015/how-to-use-different-colors-for-different-href-commands}\\
+\href{https://en.wikibooks.org/wiki/LaTeX/Counters}{And hyperref like this.}
+
+\section{Blocks}
+
+\subsection{Theorems, Lemmas, ...}
+
+\begin{Code}{tex}
+\begin{theorem}
+  Theorem 1. \blindtext
+\end{theorem}
+
+\begin{lemma}
+  Lemma 1. They have seperate numbers.
+\end{lemma}
+
+\begin{observation}
+  My observation. You can make \verb|\label{}|s...
+  \label{myob}
+\end{observation}
+
+\begin{lemma}[My lemma]
+  ...give them names, and reference them like this:\\
+  According to \cref{myob}...
+\end{lemma}
+\end{Code}
 
 \begin{theorem}
 	Theorem 1. \blindtext
 \end{theorem}
 
 \begin{lemma}
-	Lemma 1.
+	Lemma 1. They have seperate numbers.
 \end{lemma}
 
 \begin{observation}
-	My observation.
+  My observation. You can make \verb|\label{}|s...
 	\label{myob}
 \end{observation}
 
 \begin{lemma}[My lemma]
-	My lemma.
-	According to \cref{myob}.
+	...give them names, and reference them like this:\\
+	According to \cref{myob}...
 \end{lemma}
 
-\begin{theorem}[My theorem]
-	Another theorem
-\end{theorem}
+\subsection{Problems!}
 
-\begin{lemma}
-	Lemma 2.
-\end{lemma}
+This might be the most useful command of all!
+\begin{Code}{tex}
+\begin{problem}
+  This is a problem.
+\end{problem}
+\problem You can also use without \verb|\begin| and \verb|\end|.
+\problem* If you don't want \verb|\problem| to start on a new page, you can add an asterisk after them. It's unlike other commands, where adding an asterisk disables numbering.
+\problem*[C8763 --- Starburst] You can also number them yourself!
+\problem* Problem numbering is independent, too.
+\end{Code}
 
-Teeeeest url: \url{https://tex.stackexchange.com/questions/61015/how-to-use-different-colors-for-different-href-commands}
-\href{https://en.wikibooks.org/wiki/LaTeX/Counters}{Test hrefy}
+\begin{problem}
+  This is a problem.
+\end{problem}
+\problem You can also use without \verb|\begin| and \verb|\end|.
+\problem* If you don't want \verb|\problem| to start on a new page, you can add an asterisk after them. It's unlike other commands, where adding an asterisk disables numbering.
+\problem*[C8763 --- Starburst] You can also number them yourself!
+\problem* Problem numbering is independent, too.
+
+Why do problems start on new page? Because it's more convenient when dealing with GradeScope!
+
+\subsection{Code Blocks}
+
+You can input code files like this:
+
+\begin{Code}{tex}
+% \CodeFile[minted options]{lang}{filename}{caption}{label}
+\CodeFile[firstline=2]{cpp}{a.cpp}{Example code}{ex}
+And refer to them as \cref{code:ex}!
+\end{Code}
+
+\CodeFile[firstline=2]{cpp}{a.cpp}{Example code}{ex}
+And refer to them as \cref{code:ex}!
+
+Or write code inside the tex file like this:
+\begin{Code}{tex}
+\begin{Code}{cpp}
+#include <iostream>
+int main() {}
+\end{Codee} % extra e cause it won't compile
+\end{Code}
+
+\begin{Code}{cpp}
+#include <iostream>
+int main() {}
+\end{Code}
+
+\subsection{Images}
+
+Though you can manually add images by \verb|\includegraphics|, I've made a command here:
+\begin{Code}{tex}
+% \Image{filename}{caption}{label}
+\Image{cactus.jpeg}{Cactus!}{cactus}
+And refer to them like \cref{img:cactus}.
+\end{Code}
+
+\Image{cactus.jpeg}{Cactus!}{cactus}
+And refer to them like \cref{img:cactus}.
+
+\section{TikZ}
+
+I don't know how to teach TikZ in a short-enough-to-fit-in-this-document length, so here's one example:
+
+\CodeFile{tex}{omega.tex}{TikZ example}{tikzex}
+
+It looks like this:
+
+\Image{omega.pdf}{TikZ example result}{tikzexr}
+
+I always compile them as different files and input them with figures. However, they can also be done inside the same tex file.
+
+\section{Lorem Ipsums}
+
+\subsection {Chinese lorem}
+
+\sout{顏色}香半，褕海知，舉臥之斯文大…\textit{萬里送，Lorem ipsum dol'or} sit amet, consectetuer adipiscing elit. 幾度九華帳山色之難難，楚能余亦之難難夜日行陽為君。萬事仙臥月南風何十怨遙夜⋯風沙，師落葉滿秋，歲閣自照露，征柳啾啾月一曲然不得有殷勤，遠不到酒稀清輝。腸何時還，行路難獨夜南⋯羅微鳳路雪虛征戰。鳴看煙，衣裳多斜馬，相見秋松下孤城君不見西羽歲王孫：見臨烽火桃李但見茫茫獨，問見得城月涕淚長可聖兒夢不成，掩至今歌。雖識月明如此，曲夢在新到天秋一，寂昔不逢闌干，窗東流水腸斷角不見清天與故人，下兒雨千門微遲里劍閣白，石鼓。
+
+\blindtext
+
+\subsection{Ipsum}
+
+\blindtext
+
+沒有好棒，別嗚哈哈哈，都這個實說不然也不，的人的什麼最好。經不院可以去為什麼有，沒該會人嗎亡如果是，再次存跟我試圖，只有直接說這是放到最近的的影片⋯陌生人⋯也知道個月的。其覺得是起來跟不可能也很，畫面待喔好天的簡單很不是聽起來，然已經就聖我的話的聲。再然後道了嗎傍晚時害的，男的話就需要一，或許是的男，去的方法我愛次自行要跟⋯了沒好會的角色這邊，一把的人會出們看記⋯
+
 
 \end{document}
