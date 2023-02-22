@@ -151,10 +151,20 @@
 \def\@maketitle{%
 	\newpage%
 	\begingroup%
+  \colorlet{headertopcolor}{My0}%
+  \ifprint%
+    \colorlet{headerbottomcolor}{My0}%
+    \providecommand{\HeaderTopMargin}{1cm}
+    \providecommand{\HeaderSideMargin}{1.5cm}
+  \else%
+    \colorlet{headerbottomcolor}{My0!30!My4}%
+    \providecommand{\HeaderTopMargin}{0cm}
+    \providecommand{\HeaderSideMargin}{0cm}
+  \fi%
 	\begin{tikzpicture}[ remember picture, overlay ]%
 		\fill[%
-			shading = axis,rectangle, top color=My0, bottom color=My0!30!My4,%
-			] (current page.north west) rectangle ($(current page.north east) + (0, -\HeaderFillSize)$);%
+			shading = axis,rectangle, top color=headertopcolor, bottom color=headerbottomcolor,%
+			] ($(current page.north west) + (+\HeaderSideMargin, -\HeaderTopMargin)$) rectangle ($(current page.north east) + (-\HeaderSideMargin, -\HeaderFillSize)$);%
 		\coordinate (BottomLeft) at ($(current page text area.north west) + (0, -3cm)$);
 		\node[%
 			anchor=north west,%
