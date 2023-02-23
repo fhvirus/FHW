@@ -317,6 +317,31 @@
 	\end{codeblock}
 }
 
+% https://github.com/gpoore/minted/issues/84#issuecomment-133397860
+% fix mintinline text color
+\makeatletter
+\renewrobustcmd{\mintinline}[2][]{%
+  \begingroup
+  \color{CodeTextColor}%  <<---- Fix color
+  \setboolean{minted@isinline}{true}%
+  \minted@configlang{#2}%
+  \setkeys{minted@opt@cmd}{#1}%
+  \minted@fvset
+  \begingroup
+  \let\do\@makeother\dospecials
+  \catcode`\{=1
+  \catcode`\}=2
+  \catcode`\^^I=\active
+  \@ifnextchar\bgroup
+    {\minted@inline@iii}%
+    {\catcode`\{=12\catcode`\}=12
+      \minted@inline@i}}
+\makeatother
+
+% https://github.com/gpoore/minted/issues/31#issuecomment-373579402
+% fix mintinline breakline
+\setlength{\rightskip}{0pt plus 1 fil}
+
 %--------------------------------------------------
 
 \RequirePackage{graphicx}
