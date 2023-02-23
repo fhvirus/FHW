@@ -96,6 +96,7 @@
 \definecolor{My2}{HTML}{4E5B9C}
 \definecolor{My3}{HTML}{747ABB}
 \definecolor{My4}{HTML}{9A98D9}
+\definecolor{mygray}{gray}{0.9}
 
 %--------------------------------------------------
 
@@ -140,8 +141,28 @@
 
 % For printing, I prefer to use black & white scheme
 % and a header that doesn't fill to the edge of the page
-% Header isn't done yet.
-\newif\ifprint
+
+\colorlet{HeaderTopColor}{My0}%
+\newcommand{\NoPrint}{
+  \usemintedstyle{nord}
+  \colorlet{CodeTextColor}{nord06}
+  \colorlet{CodeBGColor}{nord01}
+  \setminted{bgcolor=CodeBGColor}
+  \colorlet{HeaderBottomColor}{My0!30!My4}%
+  \providecommand{\HeaderTopMargin}{0cm}
+  \providecommand{\HeaderSideMargin}{0cm}
+}
+\providecommand{\YesPrint}{
+  \usemintedstyle{bw}
+  \colorlet{CodeTextColor}{black}
+  \colorlet{CodeBGColor}{mygray}
+  \setminted{bgcolor=CodeBGColor}
+  \colorlet{HeaderBottomColor}{My0}%
+  \providecommand{\HeaderTopMargin}{1cm}
+  \providecommand{\HeaderSideMargin}{1.5cm}
+}
+
+%--------------------------------------------------
 
 \RequirePackage{tikz}
 \RequirePackage{tikzpagenodes}
@@ -152,19 +173,9 @@
 \def\@maketitle{%
 	\newpage%
 	\begingroup%
-  \colorlet{headertopcolor}{My0}%
-  \ifprint%
-    \colorlet{headerbottomcolor}{My0}%
-    \providecommand{\HeaderTopMargin}{1cm}
-    \providecommand{\HeaderSideMargin}{1.5cm}
-  \else%
-    \colorlet{headerbottomcolor}{My0!30!My4}%
-    \providecommand{\HeaderTopMargin}{0cm}
-    \providecommand{\HeaderSideMargin}{0cm}
-  \fi%
 	\begin{tikzpicture}[ remember picture, overlay ]%
 		\fill[%
-			shading = axis,rectangle, top color=headertopcolor, bottom color=headerbottomcolor,%
+			shading = axis,rectangle, top color=HeaderTopColor, bottom color=HeaderBottomColor,%
 			] ($(current page.north west) + (+\HeaderSideMargin, -\HeaderTopMargin)$) rectangle ($(current page.north east) + (-\HeaderSideMargin, -\HeaderFillSize)$);%
 		\coordinate (BottomLeft) at ($(current page text area.north west) + (0, -3cm)$);
 		\node[%
@@ -259,13 +270,21 @@
 \SetupFloatingEnvironment{listing}{name=Code}
 \crefname{listing}{Code}{Codes}
 
-\definecolor{mygray}{gray}{0.9}
-
 % https://tex.stackexchange.com/a/380279/290605
 % https://tex.stackexchange.com/a/42398/290605
 % https://github.com/gpoore/minted/issues/72
 % the \color inside \mdframed is for a weird bug
 % that the text color doesn't do as we wish
+
+\setminted{
+  tabsize=2,
+  obeytabs,
+  mathescape,
+  fontsize=\footnotesize,
+  numbersep=0pt,
+  breaklines,
+  breakafter={,},
+}
 
 % \Code[additional minted formatting]{lang}{file}{caption}{label}
 \newcommand{\CodeFile}[5][]{
@@ -273,26 +292,9 @@
 		\begin{spacing}{1}
 			\begin{mdframed}[style=CodeBlock]
 				\parskip=0pt
-        \ifprint
-        \usemintedstyle{bw}
-        \color{black}
-        \colorlet{bgc}{mygray}
-        \else
-        \usemintedstyle{nord}
-        \color{nord06}
-        \colorlet{bgc}{nord01}
-        \fi
+        \color{CodeTextColor}
 				\inputminted[
-				bgcolor=bgc,
-				tabsize=2,
-				obeytabs,
-				linenos,
-				mathescape,
-				fontsize=\footnotesize,
-				numbersep=0pt,
-        breaklines,
-        breakafter={,}
-				#1
+        linenos, #1
 				]{#2}{#3}
 			\end{mdframed}
 			\caption{#4}
@@ -303,35 +305,16 @@
 
 \newenvironment{Code}[2][]
 {\VerbatimEnvironment%
-	\begin{codeblock}
-		\begin{spacing}{1}
-				\parskip=0pt
-        \ifprint
-        \usemintedstyle{bw}
-        \color{black}
-        \colorlet{bgc}{mygray}
-        \else
-        \usemintedstyle{nord}
-        \color{nord06}
-        \colorlet{bgc}{nord01}
-        \fi
-				\begin{minted}[
-          bgcolor=bgc,
-					tabsize=2,
-					obeytabs,
-					mathescape,
-					fontsize=\footnotesize,
-					numbersep=0pt,
-          breaklines,
-          breakafter={,}
-					#1
-				]{#2}%
+  \begin{codeblock}
+    \begin{spacing}{1}
+      \parskip=0pt
+      \color{CodeTextColor}
+      \begin{minted}[#1]{#2}%
 }%
 {%
 				\end{minted}
 		\end{spacing}
 	\end{codeblock}
-  % \vspace{-\baselineskip}
 }
 
 %--------------------------------------------------
