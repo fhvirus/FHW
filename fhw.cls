@@ -347,10 +347,10 @@
 \RequirePackage{graphicx}
 
 % \Image{file}{caption}{label}
-\newcommand{\Image}[3]{
+\newcommand{\Image}[4]{
 	\begin{figure}[htpb]
 		\centering
-		\includegraphics[width=0.8\textwidth]{#1}
+		\includegraphics[width=#4\textwidth]{#1}
 		\caption{#2}
 		\label{img:#3}
 	\end{figure}
