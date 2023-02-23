@@ -206,12 +206,13 @@ int main() {}
 
 Though you can manually add images by \verb|\includegraphics|, I've made a command here:
 \begin{Code}{tex}
-% \Image{filename}{caption}{label}{size}
-\Image{cactus.jpeg}{Cactus!}{cactus}{0.8}
+% \Image[size in \textwidth's default 0.8]{filename}{caption}{label}
+\Image[0.7]{cactus.jpeg}{Cactus!}{cactus}
 And refer to them like \cref{img:cactus}.
 \end{Code}
 
-\Image{cactus.jpeg}{Cactus!}{cactus}
+% \Image[size in \textwidth's default 0.8]{filename}{caption}{label}
+\Image[0.7]{cactus.jpeg}{Cactus!}{cactus}
 And refer to them like \cref{img:cactus}.
 
 \section{TikZ}
