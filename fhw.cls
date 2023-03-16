@@ -244,6 +244,7 @@
 \NewTheorem{lemma}
 \NewTheorem{observation}
 \NewTheorem{theorem}
+\NewTheorem{claim}
 
 %--------------------------------------------------
 
@@ -251,9 +252,14 @@
 % ref: https://tex.stackexchange.com/a/254177/290605
 \RequirePackage[newfloat]{minted}
 \RequirePackage{caption}
-\RequirePackage{algorithm}              % for psuedo code
-\RequirePackage{algpseudocode}
+\RequirePackage{algorithm}
+\RequirePackage[noend]{algpseudocode}
+\RequirePackage{algorithmicx}
 \RequirePackage{mdframed}
+
+\makeatletter
+\algrenewcommand\ALG@beginalgorithmic{\fontfamily{lmr}\selectfont\relax}
+\makeatother
 
 \mdfdefinestyle{CodeBlock}{
 	innerleftmargin=28pt,

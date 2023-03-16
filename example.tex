@@ -140,6 +140,10 @@ URLs like this: \url{https://tex.stackexchange.com/questions/61015/how-to-use-di
 	Lemma 1. They have seperate numbers.
 \end{lemma}
 
+\begin{claim}
+  Claim for DSA proof!
+\end{claim}
+
 \begin{observation}
   My observation. You can make \verb|\label{}|s...
 	\label{myob}
@@ -201,6 +205,21 @@ int main() {}
 
 % This is an inline code test: \InlineCode{#include <iostream>}
 \mintinline{cpp}{for (int i = 0; i < 'a'; ++i) cout << zisk; }
+
+\begin{algorithm}
+\begin{algorithmic}[1]
+  \Procedure{Get-Min-Index}{A}
+  \State m = 1
+  \For {i = 2 to $A$.length}
+    \State // update if i-th element smaller
+    \If { $A[m] > A[i]$ }
+      \State $m = i$
+    \EndIf
+  \EndFor
+  \State \Return $m$
+  \EndProcedure
+\end{algorithmic}
+\end{algorithm}
 
 \subsection{Images}
 
