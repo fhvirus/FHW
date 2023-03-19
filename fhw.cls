@@ -416,7 +416,7 @@
 \RequirePackage{ulem}                                % for \sout{} and more
 \RequirePackage{tabularx}                            % for better tabular
 \RequirePackage{siunitx}                             % units for phys. homework
-\RequirePackage{ytableau}                            % for pretty tableau diagram
+\RequirePackage[centertableaux]{ytableau}            % for pretty tableau diagram
 \RequirePackage{halloweenmath}                       % for cuteness & fun
 
 %--------------------------------------------------
