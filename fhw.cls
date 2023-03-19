@@ -28,6 +28,7 @@
 
 %--------------------------------------------------
 
+\RequirePackage{lmodern}    % https://tex.stackexchange.com/a/621536/290605
 \RequirePackage{amssymb}
 \RequirePackage{amsmath}
 \RequirePackage{yhmath}
