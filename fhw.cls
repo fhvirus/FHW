@@ -5,6 +5,7 @@
 
 %--------------------------------------------------
 
+\RequirePackage{lmodern}    % https://tex.stackexchange.com/a/621536/290605
 \RequirePackage{fontspec}
 \RequirePackage{xeCJK}
 \XeTeXlinebreaklocale "zh"
@@ -14,21 +15,20 @@
 % supports more rare CJK punctuations.
 % https://github.com/ButTaiwan/genyo-font
 % https://github.com/ButTaiwan/genyog-font
-\setmainfont[AutoFakeSlant=.2]{GenYoMinTW-R}
-\setsansfont[AutoFakeSlant=.2]{GenYoGothicTW-R}
-\setmonofont[AutoFakeSlant=.2]{NotoSansMono-Regular}
+% \setmainfont[AutoFakeSlant=.2]{GenYoMinTW-R}
+% \setsansfont[AutoFakeSlant=.2]{GenYoGothicTW-R}
+\setmonofont[Scale=0.9,AutoFakeSlant=.2]{NotoSansMono-Regular}
 
 % However, GenYo(G) fonts do not display my name right,
 % so I still use Noto for CJK characters.
 \setCJKmainfont[AutoFakeSlant=.2]{NotoSerifCJKtc-Regular}
 \setCJKsansfont[AutoFakeSlant=.2]{NotoSansCJKtc-Regular}
-\setCJKmonofont[AutoFakeSlant=.2]{NotoSansMonoCJKtc-Regular}
+\setCJKmonofont[Scale=0.9,AutoFakeSlant=.2]{NotoSansMonoCJKtc-Regular}
 
 \RequirePackage[onehalfspacing]{setspace}
 
 %--------------------------------------------------
 
-\RequirePackage{lmodern}    % https://tex.stackexchange.com/a/621536/290605
 \RequirePackage{amssymb}
 \RequirePackage{amsmath}
 \RequirePackage{yhmath}
@@ -167,7 +167,7 @@
 
 \RequirePackage{tikz}
 \RequirePackage{tikzpagenodes}
-\usetikzlibrary{calc}
+\usetikzlibrary{calc,positioning}
 
 \makeatletter
 \newcommand{\HeaderFillSize}{5cm}
@@ -210,7 +210,7 @@
 %--------------------------------------------------
 
 \RequirePackage{xurl} % make url break almost everywhere
-\RequirePackage{hyperref}
+\RequirePackage[unicode]{hyperref}
 
 \hypersetup{
 	urlbordercolor=black,
@@ -242,6 +242,7 @@
 
 \theoremstyle{myStyle}
 \NewTheorem{corollary}
+\NewTheorem{definition}
 \NewTheorem{lemma}
 \NewTheorem{observation}
 \NewTheorem{theorem}
@@ -261,6 +262,7 @@
 \makeatletter
 \algrenewcommand\ALG@beginalgorithmic{\fontfamily{lmr}\selectfont\relax}
 \makeatother
+\algrenewcommand\alglinenumber[1]{\footnotesize #1}
 
 \mdfdefinestyle{CodeBlock}{
 	innerleftmargin=28pt,
@@ -352,6 +354,8 @@
 %--------------------------------------------------
 
 \RequirePackage{graphicx}
+\RequirePackage{caption}
+\RequirePackage{subcaption}
 
 % \Image[size in \textwidth s]{file}{caption}{label}
 \newcommand{\Image}[4][0.8]{
@@ -415,8 +419,11 @@
 \renewcommand\labelitemi{\raisebox{.2ex}{$\bullet$}} % fix tiny bullet
 \RequirePackage{ulem}                                % for \sout{} and more
 \RequirePackage{tabularx}                            % for better tabular
+\RequirePackage{multirow}                            % for multicolumn / multirow cells in table
 \RequirePackage{siunitx}                             % units for phys. homework
 \RequirePackage[centertableaux]{ytableau}            % for pretty tableau diagram
 \RequirePackage{halloweenmath}                       % for cuteness & fun
+\RequirePackage{verbatim}
+% \usepackage{enumitem}
 
 %--------------------------------------------------
