@@ -58,7 +58,8 @@
 \def\abs{\@ifstar{\@abs}{\@abs*}}
 \def\ceil{\@ifstar{\@ceil}{\@ceil*}}
 \def\floor{\@ifstar{\@floor}{\@floor*}}
-\def\inner{\@ifstar{\@inner}{\@inner*}} \def\norm{\@ifstar{\@norm}{\@norm*}}
+\def\inner{\@ifstar{\@inner}{\@inner*}}
+\def\norm{\@ifstar{\@norm}{\@norm*}}
 \def\set{\@ifstar{\@set}{\@set*}}
 \def\Set{\@ifstar{\@Set}{\@Set*}}
 \makeatother
@@ -71,6 +72,8 @@
 \newcommand{\R}{\mathbb R}
 \newcommand{\C}{\mathbb C}
 \newcommand{\contra}{\rightarrow\!\leftarrow}
+\newcommand{\vvec}[1]{\overrightarrow{#1}}
+\newcommand{\bvec}[1]{\mathbf{#1}}
 
 %--------------------------------------------------
 
@@ -141,7 +144,7 @@
 %--------------------------------------------------
 
 % For printing, I prefer to use black & white scheme
-% and a header that doesn't fill to the edge of the page
+% and a header that doesn't fill to the edge of the page.
 
 \colorlet{HeaderTopColor}{My0}%
 \newcommand{\NoPrint}{
@@ -423,7 +426,7 @@
 \RequirePackage{siunitx}                             % units for phys. homework
 \RequirePackage[centertableaux]{ytableau}            % for pretty tableau diagram
 \RequirePackage{halloweenmath}                       % for cuteness & fun
+\RequirePackage{upquote}                             % https://tex.stackexchange.com/a/63441, for `' display
 \RequirePackage{verbatim}
-% \usepackage{enumitem}
 
 %--------------------------------------------------
