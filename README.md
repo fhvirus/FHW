@@ -23,6 +23,10 @@
 - 請使用 `pdflatex` 或 `latexmk` 並加上 `-pdfxe -shell-escape` 編譯。
 - 推薦使用 [VimTex](https://github.com/lervag/vimtex) ，詳細使用方式請見官方說明及我的 dotfiles 中的 `latexmkrc` 和 `vim/plugins.vim` 。
 
+## Known Bug
+
+和 `\section` 或 `\section*` 一起用會出事，原因不明。
+
 ## Dependency
 
 請安裝以下字體：
