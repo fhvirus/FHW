@@ -232,7 +232,7 @@
 
 \newcommand*{\NewTheorem}[1]{
 	\expandafter\providecommand\csname#1autorefname\endcsname{\MakeUppercase#1}
-	\crefname{#1}{ {\MakeUppercase#1} }{{\MakeUppercase#1}s}
+	\crefname{#1}{{\MakeUppercase#1}}{{\MakeUppercase#1}s}
 	\newtheorem{#1}{\MakeUppercase#1}
 	\newtheorem*{#1*}{\MakeUppercase#1}
 }
