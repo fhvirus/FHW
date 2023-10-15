@@ -25,7 +25,8 @@
 
 ## Known Bug
 
-和 `\section` 或 `\section*` 一起用會出事，原因不明。
+- 和 `\section` 或 `\section*` 一起用會出事，原因不明。
+- Not forcing `\mintinline` background to have full height.
 
 ## Dependency
 
