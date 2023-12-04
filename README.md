@@ -26,6 +26,7 @@
 ## Known Bug
 
 - 和 `\section` 或 `\section*` 一起用會出事，原因不明。
+- `\section*` 後面緊接 `\problem` 會出事，但 `\section*` -> `\problem*` -> `\problem` 不會。
 - Not forcing `\mintinline` background to have full height.
 
 ## Dependency

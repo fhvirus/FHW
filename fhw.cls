@@ -428,5 +428,7 @@
 \RequirePackage{halloweenmath}                       % for cuteness & fun
 \RequirePackage{upquote}                             % https://tex.stackexchange.com/a/63441, for `' display
 \RequirePackage{verbatim}
+\RequirePackage[super]{nth}                          % for 1st, 2nd, 3rd...
+\RequirePackage{stmaryrd}                            % for llbrackets
 
 %--------------------------------------------------
