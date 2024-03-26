@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fhw}[Homework latex template made by FHVirus]
+\ProvidesClass{fhw-small}[Homework latex template made by FHVirus]
 
 \LoadClass[12pt]{article}
 
@@ -25,7 +25,7 @@
 \setCJKsansfont[AutoFakeSlant=.2]{NotoSansCJKtc-Regular}
 \setCJKmonofont[Scale=0.9,AutoFakeSlant=.2]{NotoSansMonoCJKtc-Regular}
 
-\RequirePackage[onehalfspacing]{setspace}
+\RequirePackage[singlespacing]{setspace}
 
 %--------------------------------------------------
 
@@ -34,6 +34,7 @@
 \RequirePackage{yhmath}
 \RequirePackage{mathtools}
 \RequirePackage{esint}      % for \oiint
+\RequirePackage{physics}    % for \eval
 \RequirePackage{mleftright} % for removing extra spaces around \left and \right
 \mleftright
 
@@ -115,7 +116,7 @@
 	footskip=2\baselineskip,
 	footnotesep=8mm,
 }
-\RequirePackage[parfill]{parskip} % substitute spaces for indent before paragraph.
+% \RequirePackage[parfill]{parskip} % substitute spaces for indent before paragraph.
 
 %--------------------------------------------------
 
@@ -172,7 +173,7 @@
 \usetikzlibrary{calc,positioning}
 
 \makeatletter
-\newcommand{\HeaderFillSize}{5cm}
+\newcommand{\HeaderFillSize}{3cm}
 \def\@maketitle{%
 	\newpage%
 	\begingroup%
@@ -180,7 +181,7 @@
 		\fill[%
 			shading = axis,rectangle, top color=HeaderTopColor, bottom color=HeaderBottomColor,%
 			] ($(current page.north west) + (+\HeaderSideMargin, -\HeaderTopMargin)$) rectangle ($(current page.north east) + (-\HeaderSideMargin, -\HeaderFillSize)$);%
-		\coordinate (BottomLeft) at ($(current page text area.north west) + (0, -3cm)$);
+		\coordinate (BottomLeft) at ($(current page text area.north west) + (0, -1cm)$);
 		\node[%
 			anchor=north west,%
 			font=\LARGE\rmfamily\bfseries,%
@@ -196,7 +197,7 @@
 			font=\rmfamily\large,%
 			minimum height=\baselineskip,%
 			text=white,%
-			] (author) at ([xshift=\textwidth,yshift=\HeaderFillSize+\topmargin]BottomLeft) {\@ID\;\@author};%
+			] (author) at ([xshift=\textwidth,yshift=\HeaderFillSize+\topmargin+0.75cm]BottomLeft) {\@ID\;\@author};%
 		\node[%
 			anchor=north east,%
 			font=\rmfamily\large,%
@@ -204,7 +205,7 @@
 			text=white,%
 			] (date) at ([yshift=-1.5\baselineskip]author.north east) {\number\year/\number\month/\number\day};%
 	\end{tikzpicture}%
-	\vspace{3cm}%
+	\vspace{0.5cm}%
 	\endgroup%
 }
 \makeatother
@@ -422,20 +423,11 @@
 \RequirePackage{ulem}                                % for \sout{} and more
 \RequirePackage{tabularx}                            % for better tabular
 \RequirePackage{multirow}                            % for multicolumn / multirow cells in table
+\RequirePackage{siunitx}                             % units for phys. homework
 \RequirePackage[centertableaux]{ytableau}            % for pretty tableau diagram
-\RequirePackage{halloweenmath}                       % for cuteness & fun
 \RequirePackage{upquote}                             % https://tex.stackexchange.com/a/63441, for `' display
 \RequirePackage{verbatim}
 \RequirePackage[super]{nth}                          % for 1st, 2nd, 3rd...
 \RequirePackage{stmaryrd}                            % for llbrackets
-
-% https://tex.stackexchange.com/a/681701
-% For that "Package siunitx Warning: Detected..." warning
-\RequirePackage{siunitx}                             % units for phys. homework
-\RequirePackage{physics}                             % for \eval
-\AtBeginDocument{\RenewCommandCopy\qty\SI}
-\ExplSyntaxOn
-\msg_redirect_name:nnn { siunitx } { physics-pkg } { none }
-\ExplSyntaxOff
 
 %--------------------------------------------------

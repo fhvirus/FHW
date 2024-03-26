@@ -49,6 +49,23 @@ The code will become:
 	\item[item6] Custom item label.
 \end{enumerate}
 
+\subsubsection{Notes}
+
+I often uses \mintinline{tex}|\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}| to make itemizes and enumerates tighter.
+Here's what the above list looks like with it:
+
+\begin{enumerate}[(a)]\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}
+	\item 一
+	\item deux
+	\setcounter{enumi}{4}
+	\item fünf
+		\begin{enumerate}[i.]
+			\item and you can
+			\item nest them.
+		\end{enumerate}
+	\item[item6] Custom item label.
+\end{enumerate}
+
 \subsection{Math symbols}
 
 There are some new symbols defined in this template:
@@ -121,6 +138,10 @@ URLs like this: \url{https://tex.stackexchange.com/questions/61015/how-to-use-di
   Lemma 1. They have seperate numbers.
 \end{lemma}
 
+\begin{claim}
+  Claim for DSA proof!
+\end{claim}
+
 \begin{observation}
   My observation. You can make \verb|\label{}|s...
   \label{myob}
@@ -192,10 +213,10 @@ And refer to them as \cref{code:ex}!
 
 Or write code inside the tex file like this:
 \begin{Code}{tex}
-\begin{Code}{cpp}
+\begin{Codee}{cpp}
 #include <iostream>
 int main() {}
-\end{Codee} % extra e cause it won't compile
+\end{Codee} % extra e because it won't compile if there's two \end{Code}
 \end{Code}
 
 \begin{Code}{cpp}
@@ -221,6 +242,16 @@ int main() {}
 \end{algorithmic}
 \end{algorithm}
 
+\subsubsection{Notes}
+
+Though I made the Code environment, I almost always uses this instead:
+\begin{Code}{tex}
+\begin{spacing}{1}
+  % some file from my CS course
+  \inputminted{py}{lab1/stackoverflow/solve.py}
+\end{spacing}
+\end{Code}
+
 \subsection{Images}
 
 Though you can manually add images by \verb|\includegraphics|, I've made a command here:
@@ -242,9 +273,94 @@ I don't know how to teach TikZ in a short-enough-to-fit-in-this-document length,
 
 It looks like this:
 
-\Image{omega.pdf}{TikZ example result}{tikzexr}
+\Image[0.3]{omega.pdf}{TikZ example result}{tikzexr}
 
 I always compile them as different files and input them with figures. However, they can also be done inside the same tex file.
+
+Some good example TikZ graph from IOICamp2024 Flow course for you to steal:
+
+\tikzset{vertex/.style={circle, draw, thick, minimum size=.8cm}}
+\tikzset{source/.style={vertex, fill=black!20}}
+\tikzset{fed/.style={draw, -latex, thick}}
+\tikzset{fat/.style={draw, -latex, line width=0.8mm}}
+\tikzset{%
+  apply style/.code={%
+    \tikzset{#1}%
+  }
+}
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[x=1.2cm,y=-1.2cm]
+    \node[source](s) at (0, 0) {$s$};
+    \node[source](t) at (0, 3) {$t$};
+    \foreach \x/\y/\name/\lab in {
+      -1.4/0.7/$v_2$/v2,
+      1.8/0.7/$v_3$/v3,
+      0.3/1.4/$v_4$/v4,
+      1.9/2.3/$v_5$/v5,
+      -1.4/2.5/$v_6$/v6%
+    } {
+      \node[vertex] (\lab) at (\x, \y) {\name};
+    }
+    \begin{scope}[every edge/.append style={pos=.5}]
+      \foreach \u/\v/\f/\ff/\style in {%
+        s/v2/4/2/{sloped, above},
+        s/v4/6/4/{left},
+        s/v3/1/1/{sloped, above},
+        s/v5/3/3/{left, pos=.8},
+        v2/v4/2/0/{sloped, below},
+        v2/v6/2/2/{left},
+        v6/t/3/2/{sloped, above,pos=.4},
+        v4/t/5/4/{left, pos=.4},
+        v5/t/4/4/{sloped, above,pos=.4},
+        v3/v5/4/1/{right}%
+      }{
+        \draw[fed] (\u) edge[apply style/.expand once=\style] 
+          node{{\bf\Large\ff}{/\f}} (\v);
+      }
+    \end{scope}
+  \end{tikzpicture}
+  \begin{tikzpicture}[x=1.2cm,y=-1.2cm]
+    \node[source](s) at (0, 0) {$s$};
+    \node[source](t) at (0, 3) {$t$};
+    \foreach \x/\y/\name/\lab in {
+      -1.4/0.7/$v_2$/v2,
+      1.8/0.7/$v_3$/v3,
+      0.3/1.4/$v_4$/v4,
+      1.9/2.3/$v_5$/v5,
+      -1.4/2.5/$v_6$/v6%
+    } {
+      \node[vertex] (\lab) at (\x, \y) {\name};
+    }
+    \begin{scope}[every edge/.append style={pos=.5}]
+      \foreach \u/\v/\f/\style in {%
+        s/v2/2/{sloped,above,bend right=60,line width=0.1cm},
+        v2/s/2/{sloped,above},
+        s/v4/2/{left,bend right},
+        v4/s/4/{right,pos=.3},
+        v3/s/1/{sloped, above},
+        v5/s/3/{left, pos=.2},
+        v2/v4/2/{sloped,below,bend right,line width=0.1cm},
+        v6/v2/2/{left},
+        v6/t/1/{sloped,bend right,below},
+        t/v6/2/{sloped,bend right,below},
+        v4/t/1/{left,bend right, pos=.4,line width=0.1cm},
+        t/v4/4/{left,bend right, pos=.4},
+        t/v5/4/{sloped, above},
+        v3/v5/3/{left,pos=.2,bend right},
+        v5/v3/1/{right}%
+      }{
+        \draw[fed] (\u) edge[apply style/.expand once=\style] 
+          node{\f} (\v);
+      }
+    \end{scope}
+  \end{tikzpicture}
+  \caption{Example flow network.}
+  \label{img:flow}
+\end{figure}
+
+The code of \cref{img:flow} not only demonstrate how to draw graph, but also how to use for loops and some useful edge style modifiers.
+Definitely worth checking out.
 
 \section{Lorem Ipsums}
 
@@ -259,6 +375,5 @@ I always compile them as different files and input them with figures. However, t
 \blindtext
 
 沒有好棒，別嗚哈哈哈，都這個實說不然也不，的人的什麼最好。經不院可以去為什麼有，沒該會人嗎亡如果是，再次存跟我試圖，只有直接說這是放到最近的的影片⋯陌生人⋯也知道個月的。其覺得是起來跟不可能也很，畫面待喔好天的簡單很不是聽起來，然已經就聖我的話的聲。再然後道了嗎傍晚時害的，男的話就需要一，或許是的男，去的方法我愛次自行要跟⋯了沒好會的角色這邊，一把的人會出們看記⋯
-
 
 \end{document}

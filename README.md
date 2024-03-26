@@ -12,7 +12,7 @@
 - 跟據要繳交檔案還是紙本變更 syntax highlight colorscheme 。
 - 用 `\printtrue` 和 `\printfalse` 來切換檔案、影印模式，印出來會比較好看。
 
-……等等功能，詳細說明請看 example.pdf。
+……等等功能，詳細說明請看 `example.pdf`。
 
 有興趣可以翻翻 `fhw.cls` 裡面所引入的 package 。
 
@@ -23,11 +23,12 @@
 - 請使用 `pdflatex` 或 `latexmk` 並加上 `-pdfxe -shell-escape` 編譯。
 - 推薦使用 [VimTex](https://github.com/lervag/vimtex) ，詳細使用方式請見官方說明及我的 dotfiles 中的 `latexmkrc` 和 `vim/plugins.vim` 。
 
-## Known Bug
+## Known Bugs
 
 - 和 `\section` 或 `\section*` 一起用會出事，原因不明。
 - `\section*` 後面緊接 `\problem` 會出事，但 `\section*` -> `\problem*` -> `\problem` 不會。
 - Not forcing `\mintinline` background to have full height.
+- `\mintinline` 炸行，我不會修 qwq
 
 ## Dependency
 
@@ -42,4 +43,8 @@
 
 前二者可以點連結至其 Repo 的 Release 下載安裝，後者建議在 Linux 系統上以 `sudo apt install fonts-noto` 安裝。
 
-CC0
+CC0，請大家用力分享。
+
+## `fhw-small.cls`
+
+就是一個 Header 比較小的版面，可以應付要求一頁 A4 但是快寫不下的狀況（如 CNS 的 Reading Critique）。
