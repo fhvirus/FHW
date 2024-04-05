@@ -112,10 +112,13 @@
 	hmargin=2cm,
 	vmargin=2cm,
 	headsep=5mm,
+  headheight=15pt,
 	footskip=2\baselineskip,
 	footnotesep=8mm,
 }
 \RequirePackage[parfill]{parskip} % substitute spaces for indent before paragraph.
+\RequirePackage{ragged2e}         % make text justifying
+\justifying
 
 %--------------------------------------------------
 
@@ -254,7 +257,7 @@
 
 % newfloat for captioning.
 % ref: https://tex.stackexchange.com/a/254177/290605
-\RequirePackage[newfloat]{minted}
+\RequirePackage[newfloat,cache=false]{minted}
 \RequirePackage{caption}
 \RequirePackage{algorithm}
 \RequirePackage[noend]{algpseudocode}
@@ -417,7 +420,9 @@
 
 %--------------------------------------------------
 
-\RequirePackage{enumerate}                           % for numbering like (a)
+% Use enumitem instead of enumerate
+% https://tex.stackexchange.com/a/519982
+\RequirePackage[shortlabels]{enumitem}               % for numbering like (a)
 \renewcommand\labelitemi{\raisebox{.2ex}{$\bullet$}} % fix tiny bullet
 \RequirePackage{ulem}                                % for \sout{} and more
 \RequirePackage{tabularx}                            % for better tabular

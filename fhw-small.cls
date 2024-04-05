@@ -34,7 +34,6 @@
 \RequirePackage{yhmath}
 \RequirePackage{mathtools}
 \RequirePackage{esint}      % for \oiint
-\RequirePackage{physics}    % for \eval
 \RequirePackage{mleftright} % for removing extra spaces around \left and \right
 \mleftright
 
@@ -117,6 +116,8 @@
 	footnotesep=8mm,
 }
 % \RequirePackage[parfill]{parskip} % substitute spaces for indent before paragraph.
+\RequirePackage{ragged2e}         % make text justifying
+\justifying
 
 %--------------------------------------------------
 
@@ -255,7 +256,7 @@
 
 % newfloat for captioning.
 % ref: https://tex.stackexchange.com/a/254177/290605
-\RequirePackage[newfloat]{minted}
+\RequirePackage[newfloat,cache=false]{minted}
 \RequirePackage{caption}
 \RequirePackage{algorithm}
 \RequirePackage[noend]{algpseudocode}
@@ -418,16 +419,27 @@
 
 %--------------------------------------------------
 
-\RequirePackage{enumerate}                           % for numbering like (a)
+% Use enumitem instead of enumerate
+% https://tex.stackexchange.com/a/519982
+\RequirePackage[shortlabels]{enumitem}               % for numbering like (a)
 \renewcommand\labelitemi{\raisebox{.2ex}{$\bullet$}} % fix tiny bullet
 \RequirePackage{ulem}                                % for \sout{} and more
 \RequirePackage{tabularx}                            % for better tabular
 \RequirePackage{multirow}                            % for multicolumn / multirow cells in table
-\RequirePackage{siunitx}                             % units for phys. homework
 \RequirePackage[centertableaux]{ytableau}            % for pretty tableau diagram
+\RequirePackage{halloweenmath}                       % for cuteness & fun
 \RequirePackage{upquote}                             % https://tex.stackexchange.com/a/63441, for `' display
 \RequirePackage{verbatim}
 \RequirePackage[super]{nth}                          % for 1st, 2nd, 3rd...
 \RequirePackage{stmaryrd}                            % for llbrackets
+
+% https://tex.stackexchange.com/a/681701
+% For that "Package siunitx Warning: Detected..." warning
+\RequirePackage{siunitx}                             % units for phys. homework
+\RequirePackage{physics}                             % for \eval
+\AtBeginDocument{\RenewCommandCopy\qty\SI}
+\ExplSyntaxOn
+\msg_redirect_name:nnn { siunitx } { physics-pkg } { none }
+\ExplSyntaxOff
 
 %--------------------------------------------------
