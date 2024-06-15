@@ -7,7 +7,7 @@
 
 \RequirePackage{lmodern}    % https://tex.stackexchange.com/a/621536/290605
 \RequirePackage{fontspec}
-\RequirePackage{xeCJK}
+\RequirePackage[fallback]{xeCJK}
 \XeTeXlinebreaklocale "zh"
 \XeTeXlinebreakskip = 0pt plus 1pt
 
@@ -17,7 +17,7 @@
 % https://github.com/ButTaiwan/genyog-font
 % \setmainfont[AutoFakeSlant=.2]{GenYoMinTW-R}
 % \setsansfont[AutoFakeSlant=.2]{GenYoGothicTW-R}
-\setmonofont[Scale=0.9,AutoFakeSlant=.2]{NotoSansMono-Regular}
+\setmonofont[Scale=0.8,AutoFakeSlant=.2]{NotoSansMono-Regular}
 
 % However, GenYo(G) fonts do not display my name right,
 % so I still use Noto for CJK characters.
@@ -422,7 +422,7 @@
 
 % Use enumitem instead of enumerate
 % https://tex.stackexchange.com/a/519982
-\RequirePackage[shortlabels]{enumitem}               % for numbering like (a)
+\RequirePackage[shortlabels,inline]{enumitem}        % for numbering like (a)
 \renewcommand\labelitemi{\raisebox{.2ex}{$\bullet$}} % fix tiny bullet
 \RequirePackage{ulem}                                % for \sout{} and more
 \RequirePackage{tabularx}                            % for better tabular
@@ -442,5 +442,8 @@
 \ExplSyntaxOn
 \msg_redirect_name:nnn { siunitx } { physics-pkg } { none }
 \ExplSyntaxOff
+
+% https://stackoverflow.com/a/40439639
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
 %--------------------------------------------------

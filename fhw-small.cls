@@ -421,7 +421,7 @@
 
 % Use enumitem instead of enumerate
 % https://tex.stackexchange.com/a/519982
-\RequirePackage[shortlabels]{enumitem}               % for numbering like (a)
+\RequirePackage[shortlabels,inline]{enumitem}        % for numbering like (a)
 \renewcommand\labelitemi{\raisebox{.2ex}{$\bullet$}} % fix tiny bullet
 \RequirePackage{ulem}                                % for \sout{} and more
 \RequirePackage{tabularx}                            % for better tabular
@@ -441,5 +441,8 @@
 \ExplSyntaxOn
 \msg_redirect_name:nnn { siunitx } { physics-pkg } { none }
 \ExplSyntaxOff
+
+% https://stackoverflow.com/a/40439639
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
 %--------------------------------------------------

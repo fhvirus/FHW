@@ -12,6 +12,14 @@
 \NoPrint
 % \YesPrint
 
+% This is optional.
+\usepackage[
+  backend=biber,
+  style=alphabetic,
+  block=ragged,
+] {biblatex}
+\addbibresource{refs.bib} % your .bib file
+
 \begin{document}
 
 \maketitle
@@ -49,12 +57,15 @@ The code will become:
 	\item[item6] Custom item label.
 \end{enumerate}
 
+Note that Custom labels are aligned to the right!
+
 \subsubsection{Notes}
 
-I often uses \mintinline{tex}|\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}| to make itemizes and enumerates tighter.
+I often used \mintinline{tex}|\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}| to make itemizes and enumerates tighter,
+thus a command \mintinline{tex}{\tightlist} is aliased to it.
 Here's what the above list looks like with it:
 
-\begin{enumerate}[(a)]\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}
+\begin{enumerate}[(a)]\tightlist
 	\item 一
 	\item deux
 	\setcounter{enumi}{4}
@@ -72,22 +83,22 @@ There are some new symbols defined in this template:
 
 \begin{Code}{tex}
 \[
-\N \Z \Q \R \C \contra
-\abs{a}, \ceil{b}, \floor{c}, \inner{x}, \norm{y}, \set{1, 2, \frac{3}{7}}
-a * b = c, x \ast y = z
+  \N \Z \Q \R \C \contra
+  \abs{a}, \ceil{b}, \floor{c}, \inner{x}, \norm{y}, \set{1, 2, \frac{3}{7}}
+  \; a * b = c, x \ast y = z
 \]
 \end{Code}
 
 \[
-\N \Z \Q \R \C \contra
-\abs{a}, \ceil{b}, \floor{c}, \inner{x}, \norm{y}, \set{1, 2, \frac{3}{7}}
-a * b = c, x \ast y = z
+  \N \Z \Q \R \C \contra
+  \abs{a}, \ceil{b}, \floor{c}, \inner{x}, \norm{y}, \set{1, 2, \frac{3}{7}}
+  \; a * b = c, x \ast y = z
 \]
 
 You can also use \verb|*| for product, no more \verb|\cdot|!
+For \(\ast\), please use \verb|\ast|.
 
 If you want to have equations with multiple lines and be aligned, you can use \verb|align*|:
-
 \begin{align*}
   & \int_{0}^{3} \abs{v\left(t\right)} dt \\
   & = \int_{0}^{1} -v\left(t\right) dt + \int_{1}^{3} v\left(t\right) dt \\
@@ -111,10 +122,12 @@ Remember to use \verb|\left( x \right)| for parantheses autoscaling, and \verb|\
 \subsection{Text ornaments}
 
 \begin{Code}{tex}
-\textbf{Bold text}, \textit{Italic \footnote{Actually it's oblique.} text} with footnote or \textsl{Slanted text}, \texttt{Teletype text}, \emph{Emphasis with underline}, \underline{Underlined}, \sout{Strike through} work like this.
+\textbf{Bold text}, \textit{Italic \footnote{Sometimes it's oblique.} text} with footnote or \textsl{Slanted text}, \texttt{Teletype text}, \emph{Emphasis with underline and \emph{another inside}}, \underline{Underlined}, \sout{Strike through} work like this.
 \end{Code}
 
-\textbf{Bold text}, \textit{Italic \footnote{Actually it's oblique.} text} with footnote or \textsl{Slanted text}, \texttt{Teletype text}, \emph{Emphasis with underline}, \underline{Underlined}, \sout{Strike through} work like this.
+\textbf{Bold text}, \textit{Italic \footnote{Sometimes it's oblique.} text} with footnote or \textsl{Slanted text}, \texttt{Teletype text}, \emph{Emphasis with underline and \emph{another inside}}, \underline{Underlined}, \sout{Strike through} work like this.
+
+If you wish to customize \verb|\emph|'s behavior, check \href{https://tex.stackexchange.com/a/701545/290605}{this}.
 
 \subsection{URLs and hyperrefs}
 
@@ -124,6 +137,29 @@ URLs like this: \url{https://tex.stackexchange.com/questions/61015/how-to-use-di
 \end{Code}
 URLs like this: \url{https://tex.stackexchange.com/questions/61015/how-to-use-different-colors-for-different-href-commands}\\
 \href{https://en.wikibooks.org/wiki/LaTeX/Counters}{And hyperref like this.}
+
+\subsection{References and bibliographies}
+
+Put this before the begin of document:
+
+\begin{Code}{tex}
+\usepackage[
+  backend=biber,
+  style=alphabetic,
+  block=ragged,
+] {biblatex}
+\addbibresource{refs.bib} % your .bib file
+\end{Code}
+
+And place this wherever you wish to print references:
+\begin{Code}{tex}
+\printbibliography
+\end{Code}
+
+Then you can \verb|\cite| things like this \cite{ecassoc} and have proper references!
+
+\printbibliography
+
 
 \section{Blocks}
 
@@ -141,6 +177,10 @@ URLs like this: \url{https://tex.stackexchange.com/questions/61015/how-to-use-di
 \begin{claim}
   Claim for DSA proof!
 \end{claim}
+
+\begin{proof}
+  Proofs have cool squares.
+\end{proof}
 
 \begin{observation}
   My observation. You can make \verb|\label{}|s...
@@ -165,6 +205,10 @@ URLs like this: \url{https://tex.stackexchange.com/questions/61015/how-to-use-di
   Claim for DSA proof!
 \end{claim}
 
+\begin{proof}
+  Proofs have cool squares.
+\end{proof}
+
 \begin{observation}
   My observation. You can make \verb|\label{}|s...
 	\label{myob}
@@ -178,6 +222,7 @@ URLs like this: \url{https://tex.stackexchange.com/questions/61015/how-to-use-di
 \subsection{Problems!}
 
 This might be the most useful command of all!
+...Or not. I haven't use it for a while.
 \begin{Code}{tex}
 \begin{problem}
   This is a problem.
@@ -247,7 +292,7 @@ int main() {}
 Though I made the Code environment, I almost always uses this instead:
 \begin{Code}{tex}
 \begin{spacing}{1}
-  % some file from my CS course
+  % some file from my computer security course
   \inputminted{py}{lab1/stackoverflow/solve.py}
 \end{spacing}
 \end{Code}
@@ -264,6 +309,11 @@ And refer to them like \cref{img:cactus}.
 % \Image[size in \textwidth's default 0.8]{filename}{caption}{label}
 \Image[0.7]{cactus.jpeg}{Cactus!}{cactus}
 And refer to them like \cref{img:cactus}.
+
+But these are kind of deprecated just like the Code command.
+I typically uses snippets for these.
+Besides, these commands cannot fix the position of images,
+so just use them if you like.
 
 \section{TikZ}
 
